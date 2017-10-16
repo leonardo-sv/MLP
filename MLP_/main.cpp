@@ -8,7 +8,7 @@ using namespace std;
 unsigned int ID_MLP = 0;
 int main()
 {
-    double learning_rate = .9;
+    double learning_rate = 10;
     double momentum = 0.7;
     double lambda = 1;
     double bias = 1.0;
@@ -16,7 +16,7 @@ int main()
     vector<vector<double>> X;
     vector<vector<double>> y;
     vector<vector<unsigned int>> config = {{7, 0},
-                                           {30, Sigmoid},
+                                           {15, Sigmoid},
                                            {1, Sigmoid}};
 
     file_to_vector("../data/X.csv", X);

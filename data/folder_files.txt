@@ -1,0 +1,1 @@
+This folder contains the set of inputs(X) and outputs(y) using for training. 

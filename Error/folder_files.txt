@@ -1,0 +1,6 @@
+This folder will be contains the MLP's error files. Including:        
+-Cross validation errors.(CV errors)
+-Tests errors.(Test errors)
+-Training errors.(Fit errors)
+
+Where the file error_train_cv(id) show all error CV and Fit error during  training epochs. And the file error_tests show all Tests erros for validation.

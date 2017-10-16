@@ -121,9 +121,7 @@ public:
             }
         }
     };
-
-
-    mlp(const unsigned int type, const double learning_rate, const double lambda, const double momentum,
+    mlp(const unsigned int id, const unsigned int type, const double learning_rate, const double lambda, const double momentum,
         const double bias, const unsigned int epochs_, const std::vector<std::vector<unsigned int>> config);
     mlp();
     ~mlp();
@@ -144,8 +142,6 @@ private:
     double (*function_error)(double, double);
     std::vector<layer> layers_;
     void l_random_weights();
-    void save_weights(const unsigned int w);
-    void set_weights_file(std::string path);
     void forward_propagation(const std::vector<double> &X);
     void add_biasX(std::vector<std::vector<double>> &X);
     void output_error(const std::vector<double> &y);
@@ -161,6 +157,10 @@ private:
     double regularization(const unsigned int M);
     void update_weights();
     void print_out();
+    void save_error(const unsigned int it, const double error_train, const double error_cv);
+    void save_weights(const unsigned int w);
+    void set_weights_file(std::string path);
+    unsigned int mlp_id;
 };
 
 #endif // MLP_H

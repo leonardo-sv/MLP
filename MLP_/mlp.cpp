@@ -8,9 +8,9 @@ mlp::mlp(): learning_rate_(0.0), lambda_(0.0), momentum_(0.0), epochs_(0)
 }
 
 
-mlp::mlp(const unsigned int type, const double learning_rate, const double lambda, const double momentum,
+mlp::mlp(const unsigned int id, const unsigned int type, const double learning_rate, const double lambda, const double momentum,
          const double bias, const unsigned int epochs, const std::vector<std::vector<unsigned int>> config):
-    learning_rate_(learning_rate), lambda_(lambda), momentum_(momentum), bias_(bias), epochs_(epochs)
+    mlp_id(id),learning_rate_(learning_rate), lambda_(lambda), momentum_(momentum), bias_(bias), epochs_(epochs)
 {
     num_layers_ = config.size() - 1;
     layers_.resize(num_layers_);
@@ -34,6 +34,7 @@ mlp::mlp(const unsigned int type, const double learning_rate, const double lambd
         layers_[i].w_per_neuron = num_weights/size_layer;
     }
     l_random_weights();
+
 }
 
 mlp::~mlp(){}
@@ -279,6 +280,8 @@ void mlp::fit(std::vector<std::vector<double>> &X, std::vector<std::vector<doubl
     double error_train;
     double error_cv;
     double old_error_cv = 0;
+    unsigned int it_save = 0;
+
 
     for(size_t i = 0; i < epochs; i++)
     {
@@ -286,13 +289,13 @@ void mlp::fit(std::vector<std::vector<double>> &X, std::vector<std::vector<doubl
         error_train = cost_function(X, y, 0, M);
         error_cv    = cost_function(X, y, M, M + CV);
         update_weights();
-        std::cout << "It:" << i << "Error:" << error_train << " " << error_cv << std::endl;
-        save_value("../Error/Error_Train.txt","", error_train);
-        save_value("../Error/Error_CV.txt","", error_cv);
+        std::cout << "It: " << i << " Error Train:" << error_train <<  " Error CV:"  << error_cv << std::endl;
+//        save_error(i, error_train, error_cv);
 
     }
 
 }
+
 
 void mlp::save_weights(const unsigned int w)
 {
@@ -331,3 +334,15 @@ void mlp::print()
         std::cout << "-----------End Layer[" << i + 1 << "]---------------" << std::endl<< std::endl;
     }
 }
+
+void mlp::save_error(const unsigned int it, const double error_train, const double error_cv)
+{
+    std::ofstream myfile ("../Error/error_train_cv" + std::to_string(mlp_id), std::ios::app);
+    if (myfile.is_open())
+    {
+        myfile << it << "  " << error_train << "  " << error_cv << std::endl;
+        myfile.close();
+    }
+    else std::cout << "ERROR: file not found" << std::endl;
+}
+

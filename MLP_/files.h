@@ -6,6 +6,7 @@
 
 void file_to_vector(std::string path, std::vector<std::vector<double>> &v);
 
-void save_value(std::string path, std::string reader, long double value);
+void save_value(std::string path, std::string c, double value);
+
 
 #endif // FILES_H

@@ -27,12 +27,11 @@ void save_value(std::string path, std::string reader, long double value)
     std::ofstream myfile (path, std::ios::app);
     if (myfile.is_open())
     {
-
-        myfile << reader;
-        if(reader.size() != 0) myfile << std::endl;
+        if(reader.size() != 0) myfile << reader << " ";
         myfile << value << std::endl;
         myfile.close();
     }
     else std::cout << "ERROR: file not found" << std::endl;
 
 }
+
